@@ -5,9 +5,17 @@ const getHello = async () => {
   return hello;
 };
 
+const getList = (id: number) => trpcServer.getListById(id);
+
 async function Page() {
   const hello = await getHello();
-  return <div>{hello.greeting}</div>;
+  const list = await getList(1);
+  return (
+    <>
+      <div>{hello.greeting}</div>
+      <pre>{JSON.stringify(list, null, 2)}</pre>
+    </>
+  );
 }
 
 export default Page;
