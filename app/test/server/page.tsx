@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import { trpcServer } from '../../../utils/trpcServer';
 
 const getHello = async () => {
@@ -12,6 +13,7 @@ async function Page() {
   const list = await getList(1);
   return (
     <>
+      <Button variant='contained'>TEST</Button>
       <div>{hello.greeting}</div>
       <pre>{JSON.stringify(list, null, 2)}</pre>
     </>

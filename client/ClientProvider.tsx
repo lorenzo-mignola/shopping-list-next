@@ -1,11 +1,16 @@
 'use client';
 
+import { CacheProvider, EmotionCache } from '@emotion/react';
+import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider } from '@mui/material/styles';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { httpBatchLink, loggerLink } from '@trpc/client';
 import { createTRPCReact } from '@trpc/react-query';
 import { useState } from 'react';
 import { AppRouter } from '../server/routers/appRouter';
 import { getBaseUrl } from '../utils/trpc';
+import createEmotionCache from './createEmotionCache';
+import theme from './theme';
 
 export const trpc = createTRPCReact<AppRouter>({
   unstable_overrides: {
@@ -18,7 +23,12 @@ export const trpc = createTRPCReact<AppRouter>({
   }
 });
 
-export function ClientProvider(props: { children: React.ReactNode }) {
+const clientSideEmotionCache = createEmotionCache();
+
+export function ClientProvider(props: {
+  children: React.ReactNode;
+  emotionCache?: EmotionCache;
+}) {
   const [queryClient] = useState(() => new QueryClient());
   const [trpcClient] = useState(() =>
     trpc.createClient({
@@ -33,10 +43,17 @@ export function ClientProvider(props: { children: React.ReactNode }) {
     })
   );
 
+  const { children, emotionCache = clientSideEmotionCache } = props;
+
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
-        {props.children}
+        <CacheProvider value={emotionCache}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            {children}
+          </ThemeProvider>
+        </CacheProvider>
       </QueryClientProvider>
     </trpc.Provider>
   );
