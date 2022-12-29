@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-page-custom-font */
 export default function Head() {
   return (
     <>
@@ -8,11 +9,13 @@ export default function Head() {
       <link
         rel='stylesheet'
         href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
+        // @ts-expect-error
         precedence='default'
       />
       <link
         rel='stylesheet'
         href='https://fonts.googleapis.com/icon?family=Material+Icons'
+        // @ts-expect-error
         precedence='default'
       />
     </>

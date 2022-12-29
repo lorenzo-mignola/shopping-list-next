@@ -1,4 +1,4 @@
-import { Item, List, PrismaClient } from '@prisma/client';
+import { Item, ItemInList, List, PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -14,16 +14,27 @@ const itemSeedData: Item[] = [
   {
     id: 1,
     name: 'item 1',
-    insertedAt: new Date(),
-    listId: 1,
     updatedAt: null
   },
   {
     id: 2,
     name: 'item 2',
-    insertedAt: new Date(),
-    listId: 1,
     updatedAt: null
+  }
+];
+
+const itemsInList: ItemInList[] = [
+  {
+    id: 1,
+    itemId: 1,
+    listId: 1,
+    insertedAt: new Date()
+  },
+  {
+    id: 2,
+    itemId: 2,
+    listId: 1,
+    insertedAt: new Date()
   }
 ];
 
@@ -34,6 +45,9 @@ async function main() {
   }
   for (const item of itemSeedData) {
     await prisma.item.create({ data: item });
+  }
+  for (const itemInList of itemsInList) {
+    await prisma.itemInList.create({ data: itemInList });
   }
   console.log(`Seeding finished.`);
 }
