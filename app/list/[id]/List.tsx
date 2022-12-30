@@ -3,7 +3,7 @@
 import { Box, Grid, Typography } from '@mui/material';
 import theme from '../../../client/theme';
 import type { FullList } from '../../../types/FullList';
-import Item from './Item';
+import Item from './(item)/Item';
 
 interface ListProps {
   list: FullList;

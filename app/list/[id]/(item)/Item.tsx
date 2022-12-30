@@ -10,8 +10,8 @@ import {
   Typography
 } from '@mui/material';
 import { format } from 'date-fns';
-import { trpc } from '../../../client/ClientProvider';
-import type { FullList } from '../../../types/FullList';
+import { trpc } from '../../../../client/ClientProvider';
+import type { FullList } from '../../../../types/FullList';
 
 interface ItemProps {
   item: FullList['items'][number];

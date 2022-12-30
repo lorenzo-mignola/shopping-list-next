@@ -1,6 +1,7 @@
 'use client';
 
 import { trpc } from '../client/ClientProvider';
+import AddList from './AddList';
 import ListName from './ListName';
 
 export default function Home() {
@@ -9,6 +10,7 @@ export default function Home() {
   return (
     <main>
       <ListName lists={list} />
+      <AddList />
     </main>
   );
 }

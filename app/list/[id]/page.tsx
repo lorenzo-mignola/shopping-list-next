@@ -2,6 +2,7 @@
 
 import { Skeleton } from '@mui/material';
 import { trpc } from '../../../client/ClientProvider';
+import AddItem from './(item)/AddItem';
 import List from './List';
 
 interface ListParams {
@@ -21,7 +22,12 @@ const ListPage = ({ params: { id } }: ListParams) => {
     return <div>No list found</div>;
   }
 
-  return <List list={list} />;
+  return (
+    <>
+      <List list={list} />
+      <AddItem />
+    </>
+  );
 };
 
 export default ListPage;
